@@ -1,0 +1,27 @@
+---
+# tasks file for jenkins
+
+- name: Get the url 
+  apt_key:
+     url: https://pkg.jenkins.io/debian/jenkins-ci.org.key 
+     state: present
+
+- name: add the key now
+  command: sudo tee /etc/apt/sources.list.d/jenkins.list
+
+- name: add the apt repo for jenkins
+  apt_repository:
+    repo: 'deb https://pkg.jenkins.io/debian-stable binary/'
+    state: present
+    update_cache: yes
+
+- name: update the repo
+  apt:
+     update_cache: yes
+     upgrade: yes
+
+- name: install jenkins
+  apt: name=jenkins state=latest
+
+- name: service start
+  service: name=jenkins state=started

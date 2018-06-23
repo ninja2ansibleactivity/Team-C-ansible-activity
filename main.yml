@@ -1,0 +1,6 @@
+---
+- name: Installation of jenkins
+  hosts: webservers
+
+  roles:
+   - jenkins
